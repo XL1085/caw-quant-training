@@ -1,10 +1,13 @@
+
 from crypto_news_api import CryptoControlAPI
 import requests
 import pandas as pd
 import json
 
+
 with open('./key.json') as f:
     api_key = json.load(f)
+
 
 api = CryptoControlAPI(api_key['key'])
 proxyApi = CryptoControlAPI(api_key['key'], "http://cryptocontrol_proxy/api/v1/public")
