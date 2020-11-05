@@ -4,9 +4,10 @@ import pandas as pd
 import json
 
 with open('./key.json') as f:
-    api = CryptoControlAPI(json.load(f))
-    proxyApi = CryptoControlAPI(json.load(f), "http://cryptocontrol_proxy/api/v1/public")
+    api_key = json.load(f)
 
+api = CryptoControlAPI(api_key['key'])
+proxyApi = CryptoControlAPI(api_key['key'], "http://cryptocontrol_proxy/api/v1/public")
 
 # Enable the sentiment datapoints
 api.enableSentiment()
