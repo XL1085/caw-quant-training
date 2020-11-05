@@ -1,12 +1,9 @@
 from crypto_news_api import CryptoControlAPI
 import requests
 import pandas as pd
-import json
 
-with open('./key.json') as f:
-    api = CryptoControlAPI(json.load(f))
-    proxyApi = CryptoControlAPI(json.load(f), "http://cryptocontrol_proxy/api/v1/public")
-
+api = CryptoControlAPI("aa7897e2787c004b73f8edd3d5a46188")
+proxyApi = CryptoControlAPI("aa7897e2787c004b73f8edd3d5a46188", "http://cryptocontrol_proxy/api/v1/public")
 
 # Enable the sentiment datapoints
 api.enableSentiment()
