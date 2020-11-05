@@ -1,31 +1,23 @@
 
-import config
-import csv
+import pandas as pd
 from binance.client import Client
+import json
 
-client=Client(config.API_KEY,config.API_SECRET)
+with open('./config.json') as f:
+    api_key = json.load(f)
 
-candles = client.get_historical_klines('BTCUSDT', Client.KLINE_INTERVAL_1HOUR,"1 Apr, 2017","1 Apr, 2020")
+client = Client(api_key['API_KEY'], api_key['API_SECRET'])
 
-csvfile=open('klines.csv','w', newline='')
-candlestick_writer=csv.writer(csvfile, delimiter=',')
-
-for candlestick in candles:
-    candlestick_writer.writerow(candlestick)
-
+candles = client.get_historical_klines('BTCUSDT', Client.KLINE_INTERVAL_1HOUR, "1 Apr, 2017", "1 Apr, 2020")
+df = pd.DataFrame(candles)
+df.to_csv('klines.csv')
 
 trades = client.get_recent_trades(symbol='BTCUSDT')
-csvfile2=open('trades.csv','w',newline='')
-tradestick_writer=csv.writer(csvfile2, delimiter=',')
-
-for tradestick in trades:
-    tradestick_writer.writerow(tradestick)
-
+df2 = pd.DataFrame(trades)
+df2.to_csv('trades.csv')
 
 orderbook = client.get_orderbook_tickers()
-csvfile3=open('orderbook.csv','w',newline='')
-orderbook_writer=csv.writer(csvfile3, delimiter=',')
+df3 = pd.DataFrame(orderbook)
+df3.to_csv('orderbook.csv')
 
-for tricker in orderbook:
-    orderbook_writer.writerow(tricker)
 
